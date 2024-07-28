@@ -32,7 +32,7 @@ After=network.target
 
 [Service]
 User=${USER}
-WorkingDirectory=${POCKETBASE_DIR}
+WorkingDirectory=${EXTRACT_DIR}
 ExecStart=${EXECUTABLE_PATH} serve
 
 [Install]
@@ -84,7 +84,7 @@ if [[ ! -f "$EXTRACT_DIR/pocketbase" ]]; then
     read
 
     # Ensure the extracted pocketbase binary exists
-    if [[ ! -f "$EXTRACT_DIR/pocketbase" ]]; then
+    if [[ ! -f "$EXECUTABLE_PATH" ]]; then
         echo "Error: PocketBase binary not found at $EXTRACT_DIR/pocketbase.\n Press any key to exit."
         read
         exit 1
@@ -104,7 +104,7 @@ fi
 
 # Create a symbolic link
 echo "Creating symbolic link to /usr/local/bin..."
-ln -sf "$EXTRACT_DIR/pocketbase" "$SYMLINK_PATH"
+ln -sf "$EXECUTABLE_PATH" "$SYMLINK_PATH"
 
 # Verify the symbolic link
 if [[ -L "$SYMLINK_PATH" ]]; then
